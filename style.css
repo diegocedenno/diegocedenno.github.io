@@ -1,0 +1,529 @@
+/* diegocedenno.github.io — estilos propios. Tokens y base en assets/tokens.css */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--s-5);
+}
+
+.brand-ring {
+  stroke: var(--text-2);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+}
+
+h2 {
+  font-size: var(--fs-xl);
+}
+
+/* ---------- idioma ---------- */
+
+.lang-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  margin-block: -1px;
+  padding: 0 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  transition: border-color var(--t-fast) var(--ease-out);
+}
+
+.lang-toggle:hover {
+  border-color: var(--border-strong);
+}
+
+/* Toque cómodo sin agrandar el botón a la vista */
+.lang-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -9px -4px;
+}
+
+.lang-toggle .is-current {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---------- portada ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: var(--s-6);
+  min-height: min(620px, calc(100dvh - 150px));
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+}
+
+.hero h1 {
+  font-size: var(--fs-display);
+  letter-spacing: -0.035em;
+}
+
+.hero-lead {
+  max-width: 34ch;
+  font-size: var(--fs-lg);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+.hero-actions .btn,
+.contact .btn {
+  text-decoration: none;
+}
+
+/* ---------- mapa orbital ---------- */
+
+.map {
+  position: relative;
+  min-width: 0;
+  height: clamp(340px, calc(100dvh - 220px), 560px);
+}
+
+.map-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sat {
+  cursor: pointer;
+  outline: none;
+}
+
+.sat-tile {
+  fill: #0d1117;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  transition: stroke var(--t-fast) var(--ease-out);
+}
+
+.sat:hover .sat-tile,
+.sat.is-active .sat-tile {
+  stroke: var(--accent);
+}
+
+.sat-halo {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 1.2;
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+
+.sat.is-active .sat-halo {
+  opacity: 1;
+}
+
+.sat:focus-visible .sat-halo {
+  opacity: 1;
+  fill: var(--cold-soft);
+  stroke: var(--cold);
+  stroke-width: 2;
+}
+
+.map-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: max-content;
+  max-width: min(260px, 72%);
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  color: var(--text-2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.map-tip.is-visible {
+  opacity: 1;
+}
+
+.map-tip b {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.map-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  margin: 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ---------- bloques ---------- */
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.block-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4) var(--s-6);
+}
+
+.block-lead {
+  max-width: 62ch;
+  margin-top: var(--s-2);
+  color: var(--text-2);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.chip {
+  min-height: 36px;
+  padding: 0 var(--s-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.03em;
+  color: var(--text-2);
+  touch-action: manipulation;
+  transition:
+    color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- tarjetas ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: var(--s-4);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    transform var(--t-med) var(--ease-out);
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--border-strong);
+  transform: translateY(-3px);
+}
+
+.card-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.card-shot img,
+.feature-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-badge {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+  padding: 2px 8px;
+  background: #0d1117;
+  border: 1px solid #484f58;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: #e6edf3;
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-4);
+}
+
+.card-name {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.card-name img {
+  flex: none;
+  border-radius: 5px;
+}
+
+.card-open {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Toda la tarjeta abre la demo; el enlace al código queda por encima */
+.card-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.card-open:focus-visible {
+  outline: none;
+}
+
+.card:has(.card-open:focus-visible) {
+  outline: 2px solid var(--cold);
+  outline-offset: 2px;
+}
+
+.card-text {
+  flex: 1;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.card-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-size: var(--fs-xs);
+}
+
+.card-demo {
+  color: var(--accent);
+}
+
+.card-code {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding-inline: var(--s-2);
+  margin-right: calc(var(--s-2) * -1);
+  color: var(--text-2);
+}
+
+.card-code:hover {
+  color: var(--text);
+}
+
+/* ---------- trabajo destacado ---------- */
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.feature-shot {
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+}
+
+.feature-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: var(--s-5);
+}
+
+.feature-body h3 {
+  font-size: var(--fs-xl);
+}
+
+.feature-body h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.feature-body h3 a:hover {
+  color: var(--accent);
+}
+
+.feature-body > p:not(.console) {
+  color: var(--text-2);
+}
+
+.feature-links {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+}
+
+.feature-links a {
+  color: var(--accent);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.tags--lg li {
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+/* ---------- cierre ---------- */
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-bottom: var(--s-6);
+}
+
+.about h2 {
+  margin-bottom: var(--s-4);
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+/* ---------- pantallas estrechas ---------- */
+
+/* En pantallas estrechas el estado baja de línea: el idioma se va a la derecha con el tema */
+@media (max-width: 640px) {
+  .lang-toggle {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .main {
+    gap: var(--s-7);
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+    min-height: 0;
+  }
+
+  .hero-lead {
+    max-width: none;
+    font-size: var(--fs-md);
+  }
+
+  .map {
+    height: clamp(260px, 44dvh, 380px);
+  }
+
+  .feature,
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .feature-shot {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-body {
+    padding: var(--s-4);
+  }
+
+  .chip {
+    min-height: 44px;
+  }
+
+  .card-code {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: none;
+  }
+}
