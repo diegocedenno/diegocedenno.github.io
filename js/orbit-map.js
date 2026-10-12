@@ -45,6 +45,7 @@
     var simTime = 0;
     var lastFrame = 0;
     var frame = 0;
+    var compact = false;
     var held = null; // satélite bajo el cursor o con foco: detiene las órbitas
     var spot = null; // satélite destacado por turno
     var spotIndex = -1;
@@ -117,7 +118,10 @@
       size.unit = Math.min(rect.width / 600, rect.height / (600 * tilt));
       size.offX = (rect.width - 600 * size.unit) / 2;
       size.offY = (rect.height - 600 * tilt * size.unit) / 2;
-      scale = clamp(1 / size.unit, 1, 1.7);
+      // En mapas estrechos los iconos crecen menos y la etiqueta deja de flotar: va fija al pie.
+      compact = rect.width < 480;
+      stage.classList.toggle("is-compact", compact);
+      scale = clamp(1 / size.unit, 1, compact ? 1.4 : 1.7);
       svg.setAttribute("viewBox", "-300 " + -300 * tilt + " 600 " + 600 * tilt);
       ringEls.forEach(function (el, i) {
         el.setAttribute("ry", (RINGS[i] * tilt).toFixed(2));
@@ -165,6 +169,10 @@
     function placeTip() {
       var sat = shown();
       if (!sat) return;
+      if (compact) {
+        tip.style.transform = "";
+        return;
+      }
       var unit = size.unit;
       var px = (sat.x + 300) * unit + size.offX;
       var py = (sat.y + 300 * tilt) * unit + size.offY;

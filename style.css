@@ -178,6 +178,28 @@ h2 {
   color: var(--accent);
 }
 
+/* Mapa estrecho: la etiqueta ocupa el pie del mapa en lugar de flotar sobre los satélites */
+.map.is-compact .map-tip {
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 320px);
+  max-width: none;
+  margin-left: max(-50%, -160px);
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  border-color: transparent;
+}
+
+.map.is-compact .map-hint {
+  display: none;
+}
+
+.map.is-compact {
+  padding-bottom: 64px;
+}
+
 .map-hint {
   position: absolute;
   left: 0;
